@@ -1,0 +1,16 @@
+.doggy {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+
+  .doggy-img {
+    position: absolute;
+    width: 100px;
+  }
+
+  .doggy-eyes {
+    position: relative;
+    margin-top: 40px;
+  }
+}

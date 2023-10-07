@@ -1,0 +1,20 @@
+header.navbar {
+  background-color: inherit;
+  color: white;
+
+  .border {
+    height: 2px;
+    background: linear-gradient(to right, hotpink, red);
+  }
+  .link {
+    margin: 0 10px;
+
+    a {
+      color: white;
+    }
+  }
+
+  .toolbar {
+    justify-content: center;
+  }
+}

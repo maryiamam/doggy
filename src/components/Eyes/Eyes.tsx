@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useAppSelector } from "../../redux/store";
-import "./Eyes.css";
+import "./Eyes.scss";
 
 interface Props {
   uid: string;
@@ -15,15 +15,11 @@ const Eyes = ({ uid, className, eyeDistance }: Props) => {
 
   const [centerX, setCenterX] = useState(0);
   const [centerY, setCenterY] = useState(0);
-  const [shiftX, setShiftX] = useState(0);
-  const [shiftY, setShiftY] = useState(0);
+  const [shiftX, setShiftX] = useState(1);
+  const [shiftY, setShiftY] = useState(1);
 
   useLayoutEffect(() => {
-    if (centerX === 0) {
-      setDimensions();
-      console.log(current);
-      console.log(uid);
-    }
+    setDimensions();
   }, []);
 
   useEffect(() => {
@@ -44,19 +40,19 @@ const Eyes = ({ uid, className, eyeDistance }: Props) => {
     const maxPosShift = 5;
     const maxNegShift = -3;
     const halfX = centerX > width - centerX ? centerX : width - centerX;
-    const posX = ((x - centerX) * 15) / halfX;
+    const posX = ((x - centerX) * 15) / halfX + 1;
     setShiftX(
       posX > 0 ? Math.min(posX, maxPosShift) : Math.max(posX, maxNegShift)
     );
     const halfY = centerY > height - centerY ? centerY : height - centerY;
-    const posY = ((y - centerY) * 15) / halfY;
+    const posY = ((y - centerY) * 15) / halfY + 1;
     setShiftY(
       posY > 0 ? Math.min(posY, maxPosShift) : Math.max(posY, maxNegShift)
     );
   };
 
   return (
-    <div key={`eyes-${uid}`} className={className} ref={current}>
+    <div key={`eyes-${uid}`} className={`eyes ${className}`} ref={current}>
       <div className="big-circle">
         <div
           className="small-circle"
