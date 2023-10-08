@@ -3,7 +3,6 @@ import nextId from "react-id-generator";
 import Doggy from "../../components/Doggy/Doggy";
 import { useAppSelector } from "../../redux/store";
 import "./DoggyMultiplier.scss";
-import doggyDark from "../../doggy-light-b.svg";
 import { Button } from "@mui/material";
 
 interface Dog {

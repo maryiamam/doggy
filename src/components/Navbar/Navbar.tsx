@@ -11,7 +11,7 @@ interface Link {
 const links: Link[] = [
   { name: "Home", href: "/" },
   { name: "Doggy", href: "/doggy" },
-  { name: "Sign In", href: "/sign-in" },
+  { name: "Sign In", href: "/auth" },
 ];
 
 const Navbar = () => {

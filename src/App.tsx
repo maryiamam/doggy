@@ -7,9 +7,9 @@ import "./App.scss";
 import { Route, Routes } from "react-router-dom";
 import { debounce } from "./utils/common";
 import Navbar from "./components/Navbar/Navbar";
-import SignIn from "./routes/SignIn/SignIn";
+import Authentication from "./routes/Authentication/Authentication";
 import { createTheme, ThemeProvider } from "@mui/material";
-import { lime, purple, pink } from "@mui/material/colors";
+import { pink } from "@mui/material/colors";
 
 const lightTheme = createTheme({
   palette: {
@@ -62,7 +62,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<DoggyMultiplier />} />
             <Route path="/doggy" element={<DoggyMultiplier />} />
-            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/auth" element={<Authentication />} />
           </Routes>
         </div>
       </div>
