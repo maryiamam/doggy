@@ -1,5 +1,6 @@
 import doggyLigth from "../../doggy-head-light.svg";
-import doggyDark from "../../doggy-light.svg";
+import doggyDark from "../../doggy-head-dark.svg";
+import { useAppSelector } from "../../redux/store";
 import Eyes from "../Eyes/Eyes";
 import "./Doggy.scss";
 
@@ -11,6 +12,8 @@ interface Props {
 }
 
 const Doggy = ({ uid, offsetTop, offsetLeft, handleClick }: Props) => {
+  const { theme } = useAppSelector((state) => state.themeReducer);
+
   return (
     <div
       className="doggy"
@@ -21,7 +24,7 @@ const Doggy = ({ uid, offsetTop, offsetLeft, handleClick }: Props) => {
       onClick={handleClick}
     >
       <div className="doggy-img">
-        <img src={doggyLigth}></img>
+        <img src={theme == "dark" ? doggyLigth : doggyDark}></img>
       </div>
 
       <Eyes uid={uid} eyeDistance={30} className="doggy-eyes" />

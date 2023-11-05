@@ -3,29 +3,21 @@ import { cursorMoved } from "./redux/cursorReducer";
 import { useAppDispatch, useAppSelector } from "./redux/store";
 import { resolutionChanged } from "./redux/resolutionReducer";
 import DoggyMultiplier from "./routes/DoggyMultiplier/DoggyMultiplier";
-import "./App.scss";
+import * as S from "./App.styled";
 import { Route, Routes } from "react-router-dom";
 import { debounce } from "./utils/common";
 import Navbar from "./components/Navbar/Navbar";
 import Authentication from "./routes/Authentication/Authentication";
-import { createTheme, ThemeProvider } from "@mui/material";
-import { pink } from "@mui/material/colors";
-
-const lightTheme = createTheme({
-  palette: {
-    primary: pink,
-  },
-});
-
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
+import { ThemeProvider } from "@mui/material";
+import darkTheme from "./styles/darkTheme";
+import lightTheme from "./styles/lightTheme";
 
 const App = () => {
   const dispatch = useAppDispatch();
   const { theme } = useAppSelector((state) => state.themeReducer);
+  const { follow: followCursor } = useAppSelector(
+    (state) => state.cursorReducer
+  );
 
   const handleResize = () => {
     dispatch(
@@ -49,23 +41,23 @@ const App = () => {
   }, []);
 
   const handleMouse = (event: any) => {
-    dispatch(cursorMoved({ x: event.clientX, y: event.clientY }));
+    if (followCursor) {
+      dispatch(cursorMoved({ x: event.clientX, y: event.clientY }));
+    }
   };
 
   return (
     <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
-      <div className="app" onMouseMove={handleMouse}>
-        <div className="app-header">
-          <Navbar />
-        </div>
-        <div className="app-body">
+      <S.AppWrapper onMouseMove={handleMouse}>
+        <Navbar />
+        <S.AppBody>
           <Routes>
             <Route path="/" element={<DoggyMultiplier />} />
             <Route path="/doggy" element={<DoggyMultiplier />} />
             <Route path="/auth" element={<Authentication />} />
           </Routes>
-        </div>
-      </div>
+        </S.AppBody>
+      </S.AppWrapper>
     </ThemeProvider>
   );
 };

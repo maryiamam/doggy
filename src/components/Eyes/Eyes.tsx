@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useAppSelector } from "../../redux/store";
-import "./Eyes.scss";
+import * as S from "./Eyes.styled";
 
 interface Props {
   uid: string;
@@ -53,18 +53,12 @@ const Eyes = ({ uid, className, eyeDistance }: Props) => {
 
   return (
     <div key={`eyes-${uid}`} className={`eyes ${className}`} ref={current}>
-      <div className="big-circle">
-        <div
-          className="small-circle"
-          style={{ marginTop: shiftY, marginLeft: shiftX }}
-        />
-      </div>
-      <div className="big-circle" style={{ marginLeft: eyeDistance }}>
-        <div
-          className="small-circle"
-          style={{ marginTop: shiftY, marginLeft: shiftX }}
-        />
-      </div>
+      <S.BigCircle>
+        <S.SmallCircle style={{ marginTop: shiftY, marginLeft: shiftX }} />
+      </S.BigCircle>
+      <S.BigCircle style={{ marginLeft: eyeDistance }}>
+        <S.SmallCircle style={{ marginTop: shiftY, marginLeft: shiftX }} />
+      </S.BigCircle>
     </div>
   );
 };

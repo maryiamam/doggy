@@ -1,7 +1,7 @@
-import { AppBar, Container, Link, Toolbar } from "@mui/material";
+import { Container, Link } from "@mui/material";
 import nextId from "react-id-generator";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
-import "./Navbar.scss";
+import * as S from "./Navbar.styled";
 
 interface Link {
   name: string;
@@ -16,23 +16,23 @@ const links: Link[] = [
 
 const Navbar = () => {
   const renderLink = (link: Link) => (
-    <div key={nextId()} className="link">
+    <S.Link key={nextId()}>
       <Link underline="none" href={link.href}>
         {link.name}
       </Link>
-    </div>
+    </S.Link>
   );
 
   return (
-    <AppBar position="static" className="navbar">
+    <S.Navbar position="static">
       <Container maxWidth="xl">
-        <Toolbar className="toolbar">
+        <S.Toolbar>
           {links.map(renderLink)}
           <ThemeSwitch />
-        </Toolbar>
+        </S.Toolbar>
       </Container>
-      <div className="border"></div>
-    </AppBar>
+      <S.Border />
+    </S.Navbar>
   );
 };
 

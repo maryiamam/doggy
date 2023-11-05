@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import nextId from "react-id-generator";
 import Doggy from "../../components/Doggy/Doggy";
-import { useAppSelector } from "../../redux/store";
-import "./DoggyMultiplier.scss";
-import { Button } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import * as S from "./DoggyMultiplier.styled";
+import doggyLight from "../../doggy-light-b.svg";
+import doggyDark from "../../doggy-dark-b.svg";
+import { cursorFollow, cursorUnfollow } from "../../redux/cursorReducer";
 
 interface Dog {
   key: string;
@@ -12,8 +14,18 @@ interface Dog {
 }
 
 const DoggyMultiplier = () => {
+  const dispatch = useAppDispatch();
   const { width, height } = useAppSelector((state) => state.resolutionReducer);
+  const { theme } = useAppSelector((state) => state.themeReducer);
   const [dogs, setDogs] = useState<Dog[]>([]);
+
+  useEffect(() => {
+    dispatch(cursorFollow());
+
+    return () => {
+      dispatch(cursorUnfollow());
+    };
+  }, []);
 
   const addDog = () => {
     const newDog = {
@@ -30,15 +42,31 @@ const DoggyMultiplier = () => {
   };
 
   return (
-    <div className="doggy-multiplier">
-      <Button
+    <S.DoggyMultiplier
+      sx={{
+        "&::before": {
+          content: '" "',
+          display: "block",
+          position: "absolute",
+          left: 0,
+          top: 30,
+          width: "100%",
+          height: "100%",
+          opacity: " 0.1",
+          backgroundImage: `url(${theme == "dark" ? doggyLight : doggyDark})`,
+          backgroundPosition: "50% 0",
+          backgroundSize: "cover",
+        },
+      }}
+    >
+      <S.AddDoggyBtn
         variant="outlined"
         onClick={addDog}
         className="add-doggy-btn"
         size="small"
       >
         Add a doggy
-      </Button>
+      </S.AddDoggyBtn>
       {dogs.map((dog: Dog) => (
         <Doggy
           key={dog.key}
@@ -48,7 +76,7 @@ const DoggyMultiplier = () => {
           handleClick={addDog}
         />
       ))}
-    </div>
+    </S.DoggyMultiplier>
   );
 };
 
