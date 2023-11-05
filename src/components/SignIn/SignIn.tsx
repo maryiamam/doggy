@@ -9,6 +9,7 @@ import FormInput from "../FormInput/FormInput";
 import Notification, {
   defaultNotification,
 } from "../Notification/Notification";
+import * as S from "./SignIn.styled";
 
 interface Form {
   email: string;
@@ -78,9 +79,9 @@ const SignIn = () => {
   };
 
   return (
-    <div>
+    <S.SignIn>
       <h3>Sign In</h3>
-      <form onSubmit={handleSubmit}>
+      <S.SignInForm onSubmit={handleSubmit}>
         <FormInput
           label="Email"
           required
@@ -100,12 +101,12 @@ const SignIn = () => {
         ></FormInput>
 
         <Button type="submit">Sign In</Button>
-      </form>
+      </S.SignInForm>
       <Button type="button" onClick={logGoogleUser}>
         Sign in with Google
       </Button>
       <Notification {...notification} />
-    </div>
+    </S.SignIn>
   );
 };
 

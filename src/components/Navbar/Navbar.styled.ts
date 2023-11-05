@@ -19,5 +19,3 @@ export const Link = styled("div")(({ theme }) => ({
   margin: "0 10px",
   color: "white",
 }));
-
-export default { Navbar, Border, Toolbar, Link };

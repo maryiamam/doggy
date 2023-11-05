@@ -17,5 +17,3 @@ export const SmallCircle = styled("div")(({ theme }) => ({
   borderRadius: "50%",
   backgroundColor: theme.palette.primary.contrastText,
 }));
-
-export default { BigCircle, SmallCircle };
