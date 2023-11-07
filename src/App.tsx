@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { cursorMoved } from "./redux/cursorReducer";
 import { useAppDispatch, useAppSelector } from "./redux/store";
 import { resolutionChanged } from "./redux/resolutionReducer";
@@ -11,10 +11,13 @@ import Authentication from "./routes/Authentication/Authentication";
 import { ThemeProvider } from "@mui/material";
 import darkTheme from "./styles/darkTheme";
 import lightTheme from "./styles/lightTheme";
+import Account from "./routes/Account/Account";
+import { UserContext } from "./contexts/user.context";
 
 const App = () => {
   const dispatch = useAppDispatch();
   const { theme } = useAppSelector((state) => state.themeReducer);
+  const { currentUser } = useContext(UserContext);
   const { follow: followCursor } = useAppSelector(
     (state) => state.cursorReducer
   );
@@ -46,6 +49,7 @@ const App = () => {
     }
   };
 
+  console.log(currentUser);
   return (
     <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
       <S.AppWrapper onMouseMove={handleMouse}>
@@ -54,7 +58,10 @@ const App = () => {
           <Routes>
             <Route path="/" element={<DoggyMultiplier />} />
             <Route path="/doggy" element={<DoggyMultiplier />} />
-            <Route path="/auth" element={<Authentication />} />
+            {!currentUser && (
+              <Route path="/auth" element={<Authentication />} />
+            )}
+            {currentUser && <Route path="/account" element={<Account />} />}
           </Routes>
         </S.AppBody>
       </S.AppWrapper>

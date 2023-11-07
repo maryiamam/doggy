@@ -1,4 +1,4 @@
-import { AppBar, styled, Toolbar as MaterialToolbar } from "@mui/material";
+import { AppBar, styled } from "@mui/material";
 
 export const Navbar = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
@@ -11,11 +11,10 @@ export const Border = styled("div")(({ theme }) => ({
   background: `linear-gradient(to right, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
 }));
 
-export const Toolbar = styled(MaterialToolbar)(({ theme }) => ({
-  justifyContent: "center",
-}));
-
 export const Link = styled("div")(({ theme }) => ({
-  margin: "0 10px",
-  color: "white",
+  display: "flex",
+
+  "&:hover a": {
+    color: theme.palette.primary.contrastText,
+  },
 }));

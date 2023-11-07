@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
@@ -24,6 +25,7 @@ const defaultForm: Form = {
 const SignIn = () => {
   const [form, setForm] = useState(defaultForm);
   const [notification, setNotification] = useState(defaultNotification);
+  const navigate = useNavigate();
 
   const { email, password } = form;
 
@@ -55,6 +57,7 @@ const SignIn = () => {
             setNotification(defaultNotification);
           },
         });
+        navigate("/");
       }
     } catch (e: any) {
       setNotification({
@@ -65,7 +68,6 @@ const SignIn = () => {
           setNotification(defaultNotification);
         },
       });
-      console.log(e);
     }
   };
 
@@ -73,6 +75,7 @@ const SignIn = () => {
     try {
       const { user } = await signInWithGooglePopup();
       await createUserDocumentFromAuth(user);
+      navigate("/");
     } catch (e) {
       console.log(e);
     }
@@ -100,10 +103,11 @@ const SignIn = () => {
           changeHandler={handleChange}
         ></FormInput>
 
-        <Button type="submit">Sign In</Button>
+        <S.SignInButton type="submit">Sign In</S.SignInButton>
       </S.SignInForm>
       <Button type="button" onClick={logGoogleUser}>
-        Sign in with Google
+        Sign in with <S.Google />
+        oogle
       </Button>
       <Notification {...notification} />
     </S.SignIn>

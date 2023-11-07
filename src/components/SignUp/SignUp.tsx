@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import { ChangeEvent, FormEvent, useState } from "react";
 import {
   createAuthUserWithEmailAndPassword,
@@ -8,6 +7,7 @@ import FormInput from "../FormInput/FormInput";
 import Notification, {
   defaultNotification,
 } from "../Notification/Notification";
+import * as S from "./SignUp.styled";
 
 interface Form {
   displayName: string;
@@ -42,7 +42,7 @@ const SignUp = () => {
     event.preventDefault();
     if (password !== confirmPassword) {
       //validation
-      alert("passwords do not match");
+      alert("Passwords do not match");
       return;
     }
 
@@ -84,8 +84,6 @@ const SignUp = () => {
           setNotification(defaultNotification);
         },
       });
-
-      console.log(e);
     }
   };
 
@@ -129,7 +127,7 @@ const SignUp = () => {
           changeHandler={handleChange}
         ></FormInput>
 
-        <Button type="submit">Sign Up</Button>
+        <S.SignUpButton type="submit">Sign Up</S.SignUpButton>
       </form>
       <Notification {...notification} />
     </div>

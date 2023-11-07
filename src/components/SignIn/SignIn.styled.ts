@@ -1,9 +1,14 @@
-import { styled } from "@mui/material";
+import { Button, styled } from "@mui/material";
+import GoogleIcon from "@mui/icons-material/Google";
 
-export const SignIn = styled("div")(({ theme }) => ({
-  // color: theme.palette.primary.contrastText,
+export const SignIn = styled("div")(({ theme }) => ({}));
+
+export const SignInForm = styled("form")(({ theme }) => ({}));
+
+export const SignInButton = styled(Button)(({ theme }) => ({
+  marginTop: 10,
 }));
 
-export const SignInForm = styled("form")(({ theme }) => ({
-  // textAlign: "left",
+export const Google = styled(GoogleIcon)(({ theme }) => ({
+  marginLeft: 5,
 }));

@@ -24,7 +24,7 @@ const Doggy = ({ uid, offsetTop, offsetLeft, handleClick }: Props) => {
       onClick={handleClick}
     >
       <div className="doggy-img">
-        <img src={theme == "dark" ? doggyLigth : doggyDark}></img>
+        <img src={theme === "dark" ? doggyLigth : doggyDark}></img>
       </div>
 
       <Eyes uid={uid} eyeDistance={30} className="doggy-eyes" />
