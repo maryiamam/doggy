@@ -12,8 +12,8 @@ import {
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDKwUUokmAmuyVih9Vi-f_NbPeYztUWJKI",
-  authDomain: "my-app-9c695.firebaseapp.com",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
   projectId: "my-app-9c695",
   storageBucket: "my-app-9c695.appspot.com",
   messagingSenderId: "398659528349",
@@ -36,7 +36,6 @@ export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth: User) => {
   const userDocRef = doc(db, "users", userAuth.uid);
-
   const userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
@@ -80,3 +79,19 @@ export const signOutUser = () => signOut(auth);
 export const onAuthStateChangedListener = (
   callback: (user: User | null) => void
 ) => onAuthStateChanged(auth, callback);
+
+export const setDocument = async (
+  collectionKey: string,
+  object: any,
+  objectKey: string
+) => {
+  const docRef = doc(db, collectionKey, objectKey);
+  await setDoc(docRef, object);
+};
+
+export const getDocument = async (collectionKey: string, docKey: string) => {
+  const docRef = doc(db, collectionKey, docKey);
+  const docSnapshot = await getDoc(docRef);
+
+  return docSnapshot.exists() ? docSnapshot.data() : null;
+};

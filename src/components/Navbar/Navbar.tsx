@@ -11,13 +11,6 @@ interface Link {
   href: string;
 }
 
-const links: Link[] = [
-  { name: "Home", href: "/" },
-  { name: "Doggy", href: "/doggy" },
-];
-
-const authorizationLink = { name: "Sign In", href: "/auth" };
-
 const Navbar = () => {
   const { currentUser } = useContext(UserContext);
   const isAuthorized = currentUser != null;
@@ -40,9 +33,10 @@ const Navbar = () => {
     <S.Navbar position="static">
       <Container>
         <Toolbar>
-          {links.map((link) => {
-            return renderLink(link);
-          })}
+          {renderLink({ name: "Home", href: "/" })}
+          {renderLink({ name: "Doggy", href: "/doggy" })}
+          {isAuthorized &&
+            renderLink({ name: "Favorites", href: "/favorites" })}
           <Box
             display="flex"
             justifyContent="flex-end"
@@ -53,7 +47,7 @@ const Navbar = () => {
             {isAuthorized ? (
               <AccountPopover />
             ) : (
-              renderLink(authorizationLink, 0, 1)
+              renderLink({ name: "Sign In", href: "/auth" }, 0, 1)
             )}
           </Box>
         </Toolbar>

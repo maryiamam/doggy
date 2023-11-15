@@ -68,7 +68,6 @@ const DoggyMultiplier = () => {
       {dogs.map((dog: Dog) => (
         <Doggy
           key={dog.key}
-          uid={dog.key}
           offsetTop={dog.offsetTop}
           offsetLeft={dog.offsetLeft}
           handleClick={addDog}

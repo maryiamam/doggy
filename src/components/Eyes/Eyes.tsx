@@ -1,14 +1,13 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppSelector } from "../../redux/store";
 import * as S from "./Eyes.styled";
 
 interface Props {
-  uid: string;
   className?: string;
   eyeDistance: number;
 }
 
-const Eyes = ({ uid, className, eyeDistance }: Props) => {
+const Eyes = ({ className, eyeDistance }: Props) => {
   const current = useRef<HTMLDivElement>(null);
   const { x, y } = useAppSelector((state) => state.cursorReducer);
   const { width, height } = useAppSelector((state) => state.resolutionReducer);
@@ -18,12 +17,10 @@ const Eyes = ({ uid, className, eyeDistance }: Props) => {
   const [shiftX, setShiftX] = useState(1);
   const [shiftY, setShiftY] = useState(1);
 
-  useLayoutEffect(() => {
-    setDimensions();
-  }, []);
-
   useEffect(() => {
-    if (centerX !== 0) {
+    if (centerX === 0) {
+      setDimensions();
+    } else {
       transform();
     }
   }, [x, y]);
@@ -52,7 +49,7 @@ const Eyes = ({ uid, className, eyeDistance }: Props) => {
   };
 
   return (
-    <div key={`eyes-${uid}`} className={`eyes ${className}`} ref={current}>
+    <div className={`eyes ${className}`} ref={current}>
       <S.BigCircle>
         <S.SmallCircle style={{ marginTop: shiftY, marginLeft: shiftX }} />
       </S.BigCircle>

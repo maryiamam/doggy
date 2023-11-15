@@ -14,15 +14,22 @@ const initContextObject: UserContextObject = {
   currentUser: null,
 };
 
+const localStorageKey = "currentUser";
+const persistedUserString = localStorage.getItem(localStorageKey);
+
 export const UserContext: Context<UserContextObject> =
   createContext(initContextObject);
 
 export const UserProvider = ({ children }: Props) => {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const persistedUser = persistedUserString
+    ? JSON.parse(persistedUserString)
+    : null;
+  const [currentUser, setCurrentUser] = useState<User | null>(persistedUser);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
       setCurrentUser(user);
+      localStorage.setItem(localStorageKey, JSON.stringify(user));
     });
 
     return unsubscribe;

@@ -11,18 +11,27 @@ export const AccountIcon = styled(IconButton)(({ theme }) => ({
 }));
 
 export const Menu = styled(MaterialMenu)(({ theme }) => ({
-  "&.MuiMenu-root": {
+  "&.MuiMenu-root .MuiPaper-root.MuiMenu-paper.MuiPopover-paper": {
+    backgroundColor: theme.palette.background.default,
+    backgroundImage: "none",
     color: theme.palette.primary.main,
-    backgroundColor: theme.palette.background,
+
+    "& ul": {
+      padding: 0,
+
+      "& li": {
+        "& svg": {
+          fontSize: "0.8rem",
+        },
+      },
+    },
   },
 }));
 
 export const MenuItem = styled(MaterialMenuItem)(({ theme }) => ({
   "&.MuiMenuItem-root": {
-    color: theme.palette.primary.main,
-    padding: "5px",
-    "&:hover": {
-      backgroundColor: theme.palette.background,
-    },
+    padding: "5px 10px",
+    fontSize: "0.8rem",
+    minHeight: "fit-content",
   },
 }));
