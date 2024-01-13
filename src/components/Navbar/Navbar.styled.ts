@@ -1,4 +1,4 @@
-import { AppBar, styled } from "@mui/material";
+import { AppBar, styled, Toolbar as ToolbarMaterial } from "@mui/material";
 
 export const Navbar = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
@@ -16,5 +16,11 @@ export const Link = styled("div")(({ theme }) => ({
 
   "&:hover a": {
     color: theme.palette.primary.contrastText,
+  },
+}));
+
+export const Toolbar = styled(ToolbarMaterial)(({ theme }) => ({
+  "&&&": {
+    minHeight: 50,
   },
 }));

@@ -2,6 +2,7 @@ import Account from "../routes/Account/Account";
 import Authentication from "../routes/Authentication/Authentication";
 import DoggyMultiplier from "../routes/DoggyMultiplier/DoggyMultiplier";
 import Favorites from "../routes/Favorites/Favorites";
+import Home from "../routes/Home/Home";
 
 export interface Route {
   name: string;
@@ -14,7 +15,7 @@ const ROUTES = {
   home: {
     name: "Home",
     path: "/",
-    component: DoggyMultiplier,
+    component: Home,
     auth: false,
   },
   doggy: {

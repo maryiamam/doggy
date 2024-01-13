@@ -1,4 +1,4 @@
-import { Box, Container, Link, Toolbar } from "@mui/material";
+import { Box, Container, Link } from "@mui/material";
 import { useContext } from "react";
 import nextId from "react-id-generator";
 import { UserContext } from "../../contexts/user.context";
@@ -32,7 +32,7 @@ const Navbar = () => {
   return (
     <S.Navbar position="static">
       <Container>
-        <Toolbar>
+        <S.Toolbar>
           {renderLink({ name: "Home", href: "/" })}
           {renderLink({ name: "Doggy", href: "/doggy" })}
           {isAuthorized &&
@@ -50,7 +50,7 @@ const Navbar = () => {
               renderLink({ name: "Sign In", href: "/auth" }, 0, 1)
             )}
           </Box>
-        </Toolbar>
+        </S.Toolbar>
       </Container>
       <S.Border />
     </S.Navbar>

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import nextId from "react-id-generator";
-import Doggy from "../../components/Doggy/Doggy";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import * as S from "./DoggyMultiplier.styled";
 import doggyLight from "../../doggy-light-b.svg";
 import doggyDark from "../../doggy-dark-b.svg";
 import { cursorFollow, cursorUnfollow } from "../../redux/cursorReducer";
+import Doggy from "../../components/Doggy/Doggy";
 
 interface Dog {
   key: string;

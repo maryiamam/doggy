@@ -1,41 +1,26 @@
 import { fetch } from "../requests";
 
 export interface Breed {
+  bred_for: string;
+  breed_group: string;
+  height: { imperial: string; metric: string };
+  id: number;
+  life_span: string;
   name: string;
-  image_link: string;
-  barking: number;
-  coat_length: number;
-  drooling: number;
-  energy: number;
-  good_with_children: number;
-  good_with_other_dogs: number;
-  good_with_strangers: number;
-  grooming: number;
-  max_height_female: number;
-  max_height_male: number;
-  max_life_expectancy: number;
-  max_weight_female: number;
-  max_weight_male: number;
-  min_height_female: number;
-  min_height_male: number;
-  min_life_expectancy: number;
-  min_weight_female: number;
-  min_weight_male: number;
-  playfulness: number;
-  protectiveness: number;
-  shedding: number;
-  trainability: number;
+  origin: string;
+  reference_image_id: string;
+  temperament: string;
+  weight: string;
 }
 
-export const getAllBreeds = async (page: number = 1) => {
-  let offset = (page - 1) * 20;
+export const getAllBreeds = async () => {
+  return await fetch("https://api.thedogapi.com/v1/breeds");
+};
 
-  const response = await fetch(
-    `https://api.api-ninjas.com/v1/dogs?min_height=1&offset=${offset}`,
-    {
-      "X-Api-Key": process.env.REACT_APP_NINJAS_API_KEY,
-    }
-  );
+export const getImage = async (imageId: string) => {
+  const result = await fetch(`https://api.thedogapi.com/v1/images/${imageId}`, {
+    "x-api-key": process.env.REACT_APP_DOGS_API_KEY,
+  });
 
-  return response;
+  return result;
 };

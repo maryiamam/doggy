@@ -1,30 +1,31 @@
+import { Grid } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/user.context";
 import {
-  getFavoriteBreeds,
+  BreedWithImage,
+  getFavoriteBreedsWithImages,
   saveFavoriteBreeds,
 } from "../../requests/database/favoriteBreeds";
-import { Breed, getAllBreeds } from "../../requests/external/dogs";
+import * as S from "./Favorites.styled";
+import doggyLight from "../../doggy-light-b.svg";
+import doggyDark from "../../doggy-dark-b.svg";
+import { useAppSelector } from "../../redux/store";
 
 const Favorites = () => {
   const { currentUser } = useContext(UserContext);
-  const [allBreeds, setAllBreeds] = useState<Breed[]>([]);
-  const [favBreeds, setFavBreeds] = useState<string[]>([]);
-
-  useEffect(() => {
-    getAllBreeds().then((data) => {
-      setAllBreeds(data);
-    });
-  }, []);
+  const [favBreeds, setFavBreeds] = useState<BreedWithImage[]>([]);
+  const { theme } = useAppSelector((state) => state.themeReducer);
 
   useEffect(() => {
     if (currentUser) {
-      getFavoriteBreeds(currentUser.uid).then((data) => console.log(data));
+      getFavoriteBreedsWithImages(currentUser.uid).then((breeds) => {
+        setFavBreeds(breeds);
+      });
     }
   }, [currentUser]);
 
-  const addBreedToFav = async (name: string) => {
-    const newFavBreeds = favBreeds.concat([name]);
+  const removeBreedFromFav = async (breed: BreedWithImage) => {
+    const newFavBreeds = favBreeds.filter((x) => x.name !== breed.name);
     setFavBreeds(newFavBreeds);
 
     if (currentUser) {
@@ -32,19 +33,28 @@ const Favorites = () => {
     }
   };
 
+  const getImgSrc = (breed: BreedWithImage) => {
+    if (breed.imgUrl) return breed.imgUrl;
+    return theme === "dark" ? doggyLight : doggyDark;
+  };
+
   return (
-    <>
-      {allBreeds.map((breed) => (
-        <div
-          key={breed.name}
+    <S.Favorites container>
+      {favBreeds.map((breed) => (
+        <Grid
+          item
+          xs={4}
+          md={3}
+          key={breed.id}
           onClick={() => {
-            addBreedToFav(breed.name);
+            // removeBreedFromFav(breed);
           }}
         >
-          {breed.name}
-        </div>
+          <S.BreedImg src={getImgSrc(breed)} />
+          <S.BreedName>{breed.name}</S.BreedName>
+        </Grid>
       ))}
-    </>
+    </S.Favorites>
   );
 };
 
